@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import fetchExchangeRates from "./requests/request";
 import TotalSumDisplay from "./Components/totalSumDisplay/totalSumDisplay";
 import ScrolledList from "./Components/scrolledList/scrolledList";
+import AddButton from "./Components/scrolledList/addButton/addButton";
 import { useState } from "react";
 
 export default function App() {
@@ -51,6 +52,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <AddButton></AddButton>
       <ScrolledList items={examples} />
       <TotalSumDisplay sum={moneySumInOneCurrency} currency={moneyCurrency} />
     </View>
