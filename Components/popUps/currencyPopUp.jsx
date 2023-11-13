@@ -10,7 +10,6 @@ const CurrencyPopUp = ({ isVisible }) => {
     <View
       style={{
         position: "absolute",
-        margin: 40,
         zIndex: 999,
         backgroundColor: "#ccd",
         borderRadius: 20,

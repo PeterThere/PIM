@@ -4,13 +4,13 @@ import fetchExchangeRates from "./requests/request";
 import TotalSumDisplay from "./Components/totalSumDisplay/totalSumDisplay";
 import ScrolledList from "./Components/scrolledList/scrolledList";
 import { useEffect, useState } from "react";
-import CurrencyPopUp from "./Components/popUps/currencyPopUp";
+import AddButton from "./Components/addButton/addButton";
 
 export default function App() {
   const [moneySumInOneCurrency, setMoneySumInOneCurrency] = useState(0);
   const [moneyCurrency, setmoneyCurrency] = useState("PLN");
   const [myCurrenciesBalances, setMyCurrenciesBalances] = useState([]);
-  const [isCurrencyPopUpVisible, setIsCurrencyPopUpVisible] = useState(true);
+  const [isCurrencyPopUpVisible, setIsCurrencyPopUpVisible] = useState(false);
 
   useEffect(() => {
     fetchMyCurrenciesBalances();
@@ -49,7 +49,9 @@ export default function App() {
     },
   ];
 
-  const changeCurrency = () => {};
+  const changeCurrency = () => {
+    // setIsCurrencyPopUpVisible(true);
+  };
 
   const fetchRates = async () => {
     const data = await fetchExchangeRates();
@@ -73,7 +75,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <CurrencyPopUp isVisible={isCurrencyPopUpVisible} />
+      <AddButton></AddButton>
       <ScrolledList items={myCurrenciesBalances} />
       <TotalSumDisplay
         sum={moneySumInOneCurrency}
