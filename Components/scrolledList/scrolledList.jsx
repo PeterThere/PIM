@@ -2,11 +2,11 @@ import React from "react";
 import { ScrollView, View } from "react-native";
 import CurrencyListElement from "./currencyListElement/currencyListElement";
 
-const ScrolledList = ({ items }) => {
+const ScrolledList = (props) => {
   return (
     <ScrollView>
-      <View>
-        {items.map((item, index) => (
+      <View style={{ marginTop: 20 }}>
+        {props.items.map((item, index) => (
           <CurrencyListElement
             key={index}
             currencyName={item.currencyName}

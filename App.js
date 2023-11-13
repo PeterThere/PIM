@@ -3,49 +3,59 @@ import { StyleSheet, Text, View } from "react-native";
 import fetchExchangeRates from "./requests/request";
 import TotalSumDisplay from "./Components/totalSumDisplay/totalSumDisplay";
 import ScrolledList from "./Components/scrolledList/scrolledList";
+import { useState } from "react";
 
 export default function App() {
+  const [moneySumInOneCurrency, setMoneySumInOneCurrency] = useState(0);
+  const [moneyCurrency, setmoneyCurrency] = useState("PLN");
+
   const fetchRates = async () => {
     const data = await fetchExchangeRates();
     return data;
   };
 
-  const items = ["eur", "usd", "gbp", "chf", "jpy", "aud", "cad", "sek"];
+  const examples = [
+    {
+      currencyName: "Canadian Dollar",
+      currencyShortName: "CAD",
+      numberOfUnits: 150,
+    },
+    {
+      currencyName: "Swiss Franc",
+      currencyShortName: "CHF",
+      numberOfUnits: 75,
+    },
+    {
+      currencyName: "Australian Dollar",
+      currencyShortName: "AUD",
+      numberOfUnits: 300,
+    },
+    {
+      currencyName: "New Zealand Dollar",
+      currencyShortName: "NZD",
+      numberOfUnits: 250,
+    },
+    {
+      currencyName: "Mexican Peso",
+      currencyShortName: "MXN",
+      numberOfUnits: 1000,
+    },
+    {
+      currencyName: "Chinese Yuan",
+      currencyShortName: "CNY",
+      numberOfUnits: 800,
+    },
+  ];
 
   // fetchRates().then((data) => console.log(data));
 
   return (
     <View style={styles.container}>
-      <ScrolledList items={items} />
+      <ScrolledList items={examples} />
+      <TotalSumDisplay sum={moneySumInOneCurrency} currency={moneyCurrency} />
     </View>
   );
 }
-const examples = [
-  {
-    currencyName: "US Dollar",
-    currencyShortName: "USD",
-    numberOfUnits: 100,
-    targetNumber: 500,
-  },
-  {
-    currencyName: "Euro",
-    currencyShortName: "EUR",
-    numberOfUnits: 50,
-    targetNumber: 1000,
-  },
-  {
-    currencyName: "British Pound",
-    currencyShortName: "GBP",
-    numberOfUnits: 200,
-    targetNumber: 1500,
-  },
-  {
-    currencyName: "Japanese Yen",
-    currencyShortName: "JPY",
-    numberOfUnits: 5000,
-    targetNumber: 20000,
-  },
-];
 
 const styles = StyleSheet.create({
   container: {

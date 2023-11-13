@@ -6,7 +6,14 @@ const TotalSumDisplay = (props) => {
   const { currency } = props;
 
   return (
-    <View style={{ backgroundColor: "orange", padding: 20, borderRadius: 10 }}>
+    <View
+      style={{
+        backgroundColor: "orange",
+        padding: 20,
+        margin: 20,
+        borderRadius: 10,
+      }}
+    >
       <Text style={{ fontSize: 24, color: "white" }}>
         You have {sum} {currency}
       </Text>
