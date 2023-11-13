@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 
 const TotalSumDisplay = (props) => {
   const { sum } = props;
@@ -14,9 +14,11 @@ const TotalSumDisplay = (props) => {
         borderRadius: 10,
       }}
     >
-      <Text style={{ fontSize: 24, color: "white" }}>
-        You have {sum} {currency}
-      </Text>
+      <Pressable onPress={props.changeCurrency()}>
+        <Text style={{ fontSize: 24, color: "white" }}>
+          You have {sum} {currency}
+        </Text>
+      </Pressable>
     </View>
   );
 };
