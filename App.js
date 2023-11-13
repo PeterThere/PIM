@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import fetchExchangeRates from "./requests/request";
 import TotalSumDisplay from "./Components/totalSumDisplay/totalSumDisplay";
 import ScrolledList from "./Components/scrolledList/scrolledList";
-import AddButton from "./Components/scrolledList/addButton/addButton";
+import AddButton from "./Components/addButton/addButton";
 import { useState } from "react";
 
 export default function App() {

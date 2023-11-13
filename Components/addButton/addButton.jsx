@@ -3,21 +3,22 @@ import { View, Text } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import * as data from "../../../data/symbols.json";
+import * as data from "../../data/symbols.json";
 export const AddButton = () => {
   return (
     <SelectDropdown
       data={data.symbols}
-      onSelect={(selectedItem, index) => {
-        console.log(selectedItem, index);
+      onSelect={(selectedItem) => {
+        console.log(selectedItem);
       }}
       defaultButtonText={"Select country"}
-      buttonTextAfterSelection={(selectedItem, index) => {
+      buttonTextAfterSelection={(selectedItem) => {
         return selectedItem;
       }}
       rowTextForSelection={(item, index) => {
         return item;
       }}
+      search
       renderDropdownIcon={(isOpened) => {
         return (
           <FontAwesome
