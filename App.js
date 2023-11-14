@@ -10,11 +10,16 @@ export default function App() {
   const [moneySumInOneCurrency, setMoneySumInOneCurrency] = useState(0);
   const [moneyCurrency, setmoneyCurrency] = useState("PLN");
   const [myCurrenciesBalances, setMyCurrenciesBalances] = useState([]);
-  const [isCurrencyPopUpVisible, setIsCurrencyPopUpVisible] = useState(false);
 
   useEffect(() => {
     fetchMyCurrenciesBalances();
   }, []);
+
+  const updateItems = (items) => {
+    console.log("items", items);
+    setMyCurrenciesBalances(items);
+    setMoneySumInOneCurrency(calculateSum(items));
+  };
 
   const examples = [
     {
@@ -76,7 +81,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <AddButton></AddButton>
-      <ScrolledList items={myCurrenciesBalances} />
+      <ScrolledList items={myCurrenciesBalances} updateItems={updateItems} />
       <TotalSumDisplay
         sum={moneySumInOneCurrency}
         currency={moneyCurrency}

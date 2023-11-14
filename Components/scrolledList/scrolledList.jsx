@@ -3,6 +3,12 @@ import { ScrollView, View } from "react-native";
 import CurrencyListElement from "./currencyListElement/currencyListElement";
 
 const ScrolledList = (props) => {
+  const onDelete = (currencyShortName) => {
+    props.updateItems(
+      props.items.filter((item) => item.currencyShortName !== currencyShortName)
+    );
+  };
+
   return (
     <ScrollView>
       <View style={{ marginTop: 20 }}>
@@ -13,6 +19,7 @@ const ScrolledList = (props) => {
             currencyShortName={item.currencyShortName}
             numberOfUnits={item.numberOfUnits}
             targetNumber={item.targetNumber}
+            onDelete={onDelete}
           />
         ))}
       </View>

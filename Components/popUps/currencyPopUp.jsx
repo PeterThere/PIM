@@ -16,7 +16,7 @@ const CurrencyPopUp = ({ isVisible }) => {
         padding: 20,
       }}
     >
-      <Text style={{ fontSize: 50 }}>{"123"}</Text>
+      <Text style={{ fontSize: 50 }}>{"Choose your currency"}</Text>
     </View>
   );
 };

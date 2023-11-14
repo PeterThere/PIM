@@ -1,6 +1,5 @@
 import React from "react";
 import { Pressable, Text, View } from "react-native";
-import CurrencyPopUp from "../popUps/currencyPopUp";
 
 const TotalSumDisplay = (props) => {
   const { sum } = props;
@@ -23,7 +22,6 @@ const TotalSumDisplay = (props) => {
       }}
     >
       <Pressable onPress={handlePress}>
-        <CurrencyPopUp isVisible={isCurrencyPopUpVisible} />
         <Text style={{ fontSize: 24, color: "white" }}>
           You have {sum} {currency}
         </Text>
