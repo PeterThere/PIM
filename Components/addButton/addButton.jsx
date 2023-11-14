@@ -2,29 +2,26 @@ import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import * as data from "../../data/symbols.json";
-import * as fs from "react-native-fs";
 export const AddButton = () => {
+  const storeData = async (key, value) => {
+    try {
+      await AsyncStorage.setItem(key, value);
+    } catch (e) {
+      // saving error
+    }
+  };
   return (
     <SelectDropdown
       data={data.symbols}
       onSelect={(selectedItem) => {
-        data[selectedItem] = { value: 0 };
-        fs.writeFile(
-          "./data/currencies.json",
-          JSON.stringify(newData),
-          console.log(selectedItem),
-          (err) => {
-            if (err) console.log("Error writing file:", err);
-          }
-        );
+        console.log(selectedItem);
       }}
       defaultButtonText={"Select country"}
       buttonTextAfterSelection={(selectedItem) => {
         return selectedItem;
       }}
-      rowTextForSelection={(item, index) => {
+      rowTextForSelection={(item) => {
         return item;
       }}
       search
