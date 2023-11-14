@@ -1,11 +1,9 @@
 {
   "currencies": {
     "PLN": {
-      "fullname": "Polish Zloty",
       "value": 2137
     },
     "AFN": {
-      "fullname": "United Arab Emirates Dirham",
       "value": 2138
     }
   }

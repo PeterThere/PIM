@@ -17,6 +17,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.72.6",
+    "react-native-fs": "^2.20.0",
     "react-native-select-dropdown": "^3.4.0",
     "react-native-web": "~0.19.6"
   },
