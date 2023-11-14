@@ -9,6 +9,7 @@ export const AddButton = () => {
       <SelectDropdown
         data={data.symbols}
         onSelect={(selectedItem) => {
+          //call to add listelement
           console.log(selectedItem);
         }}
         defaultButtonText={"Select currency"}
