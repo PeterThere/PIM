@@ -21,6 +21,16 @@ export default function App() {
     setMoneySumInOneCurrency(calculateSum(items));
   };
 
+  const updateCurrencyNum = (currencyShortName, numberOfUnits) => {
+    const newItems = myCurrenciesBalances.map((item) => {
+      if (item.currencyShortName === currencyShortName) {
+        item.numberOfUnits = numberOfUnits;
+      }
+      return item;
+    });
+    updateItems(newItems);
+  };
+
   const examples = [
     {
       currencyName: "Canadian Dollar",
@@ -81,7 +91,11 @@ export default function App() {
   return (
     <View style={styles.container}>
       <AddButton></AddButton>
-      <ScrolledList items={myCurrenciesBalances} updateItems={updateItems} />
+      <ScrolledList
+        items={myCurrenciesBalances}
+        updateItems={updateItems}
+        updateCurrencyNum={updateCurrencyNum}
+      />
       <TotalSumDisplay
         sum={moneySumInOneCurrency}
         currency={moneyCurrency}
