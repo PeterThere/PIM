@@ -4,13 +4,6 @@ import SelectDropdown from "react-native-select-dropdown";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import * as data from "../../data/symbols.json";
 export const AddButton = () => {
-  const storeData = async (key, value) => {
-    try {
-      await AsyncStorage.setItem(key, value);
-    } catch (e) {
-      // saving error
-    }
-  };
   return (
     <View style={{ marginTop: 40 }}>
       <SelectDropdown
@@ -44,7 +37,6 @@ export const AddButton = () => {
           );
         }}
         dropdownIconPosition={"right"}
-        searchPlaceHolder={"Search here"}
         searchPlaceHolderColor={"darkgrey"}
         renderSearchInputLeftIcon={() => {
           return <FontAwesome name={"search"} color={"#444"} size={18} />;
