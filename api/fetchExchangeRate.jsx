@@ -7,7 +7,7 @@ _storeData = async (symbol, rate) => {
   try {
     await AsyncStorage.setItem(symbol, rate);
   } catch (error) {
-    console.log("Better luck next time");
+    console.log("Better luck next time!");
   }
 };
 //TO DO: change config to accept base, symbols as parameters
@@ -22,7 +22,7 @@ const config = {
 };
 
 axios(config).then((response) => {
-  console.log(response.data);
+  console.log("Response from request: " + response.data);
   response.data.rates.map((symbol, rate) => {
     _storeData(symbol, rate);
     console.log(symbol + "saved at" + rate);
