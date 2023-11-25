@@ -19,7 +19,9 @@ const TotalSumDisplay = (props) => {
         margin: 20,
         borderRadius: 10,
         display: "flex",
+        bottom: 0,
         zIndex: 999,
+        position: "absolute",
       }}
     >
       <Pressable onPress={handlePress}>

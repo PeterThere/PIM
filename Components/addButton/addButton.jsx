@@ -5,7 +5,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import * as data from "../../data/symbols.json";
 export const AddButton = () => {
   return (
-    <View style={{ marginTop: 40 }}>
+    <View style={{ marginTop: 100 }}>
       <SelectDropdown
         data={data.symbols}
         onSelect={(selectedItem) => {
