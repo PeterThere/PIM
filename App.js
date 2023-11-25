@@ -5,32 +5,9 @@ import TotalSumDisplay from "./Components/totalSumDisplay/totalSumDisplay";
 import ScrolledList from "./Components/scrolledList/scrolledList";
 import { useEffect, useState } from "react";
 import AddButton from "./Components/addButton/addButton";
+import ModifyMoneyCountPopup from "./Components/popUps/modifymoneyCountPopup";
 
 export default function App() {
-  const [moneySumInOneCurrency, setMoneySumInOneCurrency] = useState(0);
-  const [moneyCurrency, setmoneyCurrency] = useState("PLN");
-  const [myCurrenciesBalances, setMyCurrenciesBalances] = useState([]);
-
-  useEffect(() => {
-    fetchMyCurrenciesBalances();
-  }, []);
-
-  const updateItems = (items) => {
-    console.log("items", items);
-    setMyCurrenciesBalances(items);
-    setMoneySumInOneCurrency(calculateSum(items));
-  };
-
-  const updateCurrencyNum = (currencyShortName, numberOfUnits) => {
-    const newItems = myCurrenciesBalances.map((item) => {
-      if (item.currencyShortName === currencyShortName) {
-        item.numberOfUnits = numberOfUnits;
-      }
-      return item;
-    });
-    updateItems(newItems);
-  };
-
   const examples = [
     {
       currencyName: "Canadian Dollar",
@@ -64,9 +41,45 @@ export default function App() {
     },
   ];
 
-  const changeCurrency = () => {
-    // setIsCurrencyPopUpVisible(true);
+  const [moneySumInOneCurrency, setMoneySumInOneCurrency] = useState(0);
+  const [moneyCurrency, setmoneyCurrency] = useState("PLN");
+  const [myCurrenciesBalances, setMyCurrenciesBalances] = useState([]);
+
+  const [isCurrencyPopUpVisible, setIsCurrencyPopUpVisible] = useState(false);
+  const [popupIsAdd, setPopupIsAdd] = useState(false);
+  const [popupCurrencyShortName, setPopupCurrencyShortName] = useState("");
+
+  useEffect(() => {
+    fetchMyCurrenciesBalances();
+  }, []);
+
+  const updateItems = (items) => {
+    setMyCurrenciesBalances(items);
+    setMoneySumInOneCurrency(calculateSum(items));
   };
+
+  const updateCurrencyNum = (currencyShortName, numberOfUnits) => {
+    hideCurrencyPopUp();
+    const newItems = myCurrenciesBalances.map((item) => {
+      if (item.currencyShortName === currencyShortName) {
+        item.numberOfUnits = numberOfUnits;
+      }
+      return item;
+    });
+    updateItems(newItems);
+  };
+
+  const showCurrencyPopUp = (isAdd, currencyShortName) => {
+    setPopupIsAdd(isAdd);
+    setIsCurrencyPopUpVisible(true);
+    setPopupCurrencyShortName(currencyShortName);
+  };
+
+  const hideCurrencyPopUp = () => {
+    setIsCurrencyPopUpVisible(false);
+  };
+
+  const changeCurrency = () => {};
 
   const fetchRates = async () => {
     const data = await fetchExchangeRates();
@@ -91,15 +104,23 @@ export default function App() {
   return (
     <View style={styles.container}>
       <AddButton></AddButton>
+      <ModifyMoneyCountPopup
+        isVisible={isCurrencyPopUpVisible}
+        isAdd={popupIsAdd}
+        currencyShortName={popupCurrencyShortName}
+        items={myCurrenciesBalances}
+        updateCurrencyNum={updateCurrencyNum}
+      />
       <ScrolledList
         items={myCurrenciesBalances}
         updateItems={updateItems}
-        updateCurrencyNum={updateCurrencyNum}
+        showCurrencyPopUp={showCurrencyPopUp}
       />
       <TotalSumDisplay
         sum={moneySumInOneCurrency}
         currency={moneyCurrency}
         changeCurrency={changeCurrency}
+        updateCurrencyNum={updateCurrencyNum}
       />
     </View>
   );

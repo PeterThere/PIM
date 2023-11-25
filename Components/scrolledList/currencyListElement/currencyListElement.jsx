@@ -8,6 +8,14 @@ const CurrencyListElement = (props) => {
     props.onDelete(props.currencyShortName);
   };
 
+  const handleAdd = () => {
+    props.showCurrencyPopUp(true, props.currencyShortName);
+  };
+
+  const handleSubtract = () => {
+    props.showCurrencyPopUp(false, props.currencyShortName);
+  };
+
   return (
     <View
       style={{
@@ -36,15 +44,24 @@ const CurrencyListElement = (props) => {
           <Icon name="trash" size={20} color="#000" />
         </View>
       </TouchableOpacity>
-      <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-        {props.currencyShortName} {props.numberOfUnits}
-      </Text>
+
+      <View>
+        <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+          {props.currencyShortName} {props.numberOfUnits}
+        </Text>
+        <Text>{props.currencyName}</Text>
+      </View>
+
       <View style={{ position: "relative" }}>
         <ManageMoneyButton
           isAdd={true}
+          onClick={handleAdd}
           style={{ position: "absolute", right: 0 }}
         />
-        <ManageMoneyButton style={{ position: "absolute", right: 40 }} />
+        <ManageMoneyButton
+          onClick={handleSubtract}
+          style={{ position: "absolute", right: 40 }}
+        />
       </View>
     </View>
   );

@@ -1,40 +1,68 @@
 import React, { useState } from "react";
+import { View, Text, Button, TextInput } from "react-native";
 
 function ModifyMoneyCountPopup(props) {
-  const [moneyCount, setMoneyCount] = useState(0);
+  const [moneyCount, setMoneyCount] = useState("0");
 
-  const handleMoneyCountChange = (event) => {
-    setMoneyCount(parseFloat(event.target.value));
+  const handleMoneyCountChange = (value) => {
+    setMoneyCount(value);
+  };
+
+  const currencyShortName = props.currencyShortName;
+  const isAdd = props.isAdd;
+  const isVisible = props.isVisible;
+
+  handleButtonPress = () => {
+    numberOfUnits = props.items.filter(
+      (item) => item.currencyShortName === currencyShortName
+    )[0].numberOfUnits;
+    numberOfUnits = isAdd
+      ? parseFloat(numberOfUnits) + parseFloat(moneyCount)
+      : parseFloat(numberOfUnits) - parseFloat(moneyCount);
+    props.updateCurrencyNum(currencyShortName, numberOfUnits);
   };
 
   const popupStyle = {
-    zIndex: 999,
     position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    backgroundColor: "#fff",
-    padding: "20px",
-    borderRadius: "5px",
-    boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
+    zIndex: 999,
+    backgroundColor: "#ccd",
+    borderRadius: 20,
+    padding: 20,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    alignItems: "center",
   };
 
-  if (!props.isVisible) {
+  const inputStyle = {
+    borderWidth: 1,
+    borderColor: "gray",
+    borderRadius: 5,
+    padding: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    width: 200,
+  };
+
+  if (!isVisible) {
     return null;
   }
 
   return (
-    <div style={popupStyle}>
-      <h2>Modify Money Count</h2>
-      <input
-        type="number"
-        step="0.01"
-        value={moneyCount}
-        onChange={handleMoneyCountChange}
+    <View style={popupStyle}>
+      <Text>
+        {isAdd ? "Add" : "Subtract"} {currencyShortName}
+      </Text>
+      <TextInput
+        placeholder="How much..."
+        keyboardType="numeric"
+        style={inputStyle}
+        onChangeText={handleMoneyCountChange}
+        defaultValue={moneyCount} // Set the initial value here
       />
-      <button onClick={() => props.onSave(moneyCount)}>Save</button>
-      <button onClick={props.onCancel}>Cancel</button>
-    </div>
+      <Button title="Submit" onPress={handleButtonPress} />
+    </View>
   );
 }
 
