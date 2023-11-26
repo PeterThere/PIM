@@ -3,14 +3,18 @@ import { View, Text, StyleSheet } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import * as data from "../../data/symbols.json";
+import {
+  getCurrencyList,
+  setCurrencyAmount,
+} from "../../api/firebaseFunctions";
 export const AddButton = () => {
   return (
     <View style={{ marginTop: 100 }}>
       <SelectDropdown
         data={data.symbols}
         onSelect={(selectedItem) => {
-          //call to add listelement
-          console.log(selectedItem);
+          //Tutaj można jakiegoś ładnego prompta jebnąć w sumie
+          setCurrencyAmount(selectedItem, 0);
         }}
         defaultButtonText={"Select currency"}
         buttonTextAfterSelection={(selectedItem) => {

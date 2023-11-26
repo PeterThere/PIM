@@ -1,5 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -10,8 +12,9 @@ const firebaseConfig = {
   projectId: "bankmeup-edae5",
   storageBucket: "bankmeup-edae5.appspot.com",
   messagingSenderId: "845286238247",
-  appId: "1:845286238247:web:91755db8bcb3cd82b7c602",
+  appId: "1:845286238247:web:527bd342c48f20fab7c602",
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const FIREBASE_APP = initializeApp(firebaseConfig);
+export const FIRESTORE_DB = getFirestore(FIREBASE_APP);
+export const FIREBASE_AUTH = getAuth(FIREBASE_APP);
