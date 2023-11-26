@@ -1,12 +1,12 @@
 import axios from "axios";
-import { AsyncStorage } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const baseUrl = "http://api.exchangeratesapi.io";
 
 _storeData = async (symbol, rate) => {
   try {
     //nie zapisuje
-    await AsyncStorage.setItem(symbol, rate);
+    await AsyncStorage.setItem(symbol, String(rate));
     console.log(symbol + " saved at " + rate);
   } catch (error) {
     console.log("Better luck next time!");
