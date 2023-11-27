@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
-import roundNumber from "../../utils/roundNumber";
+import roundToTwoDecimalPlaces from "../../utils/roundNumber";
 
 const TotalSumDisplay = (props) => {
-  const { exchangeRates, currency } = props;
-  const items =  props.items;
+  const { currency, items } = props;
   const [isCurrencyPopUpVisible, setIsCurrencyPopUpVisible] = useState(false);
   const [sum, setSum] = useState(0);
 
@@ -15,16 +14,16 @@ const TotalSumDisplay = (props) => {
 
   useEffect(() => {
     calculateSum();
-  }, [items]);
+  }, [items, props.exchangeRates]);
 
   const calculateSum = () => {
     let sum = 0;
-    console.log("ASFHDKASDFKAS" + items);
-    items ? () => {items.forEach((item) => {
-      sum += parseFloat(item.numberOfUnits);
-    });} : () => {setSum(sum)};
-    
-    setSum(sum);
+    if (!items) return 0;
+    items.forEach((item) => {
+      const exchangeRate = props.exchangeRates[item.currencyShortName];
+      sum += parseFloat(item.numberOfUnits) * exchangeRate;
+    });
+    setSum(roundToTwoDecimalPlaces(sum));
   };
 
   return (

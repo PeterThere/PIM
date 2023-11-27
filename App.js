@@ -49,17 +49,14 @@ export default function App() {
   const [popupIsAdd, setPopupIsAdd] = useState(false);
   const [popupCurrencyShortName, setPopupCurrencyShortName] = useState("");
 
-  const [exchangeRates, setExchangeRates] = useState([]);  
+  const [exchangeRates, setExchangeRates] = useState([]);
 
   useEffect(() => {
     fetchMyCurrenciesBalances();
     fetchRates();
   }, []);
 
-  
-
   const updateItems = (items) => {
-    console.log(items);
     setMyCurrenciesBalances(items);
   };
 

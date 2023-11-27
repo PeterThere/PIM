@@ -2,6 +2,7 @@ import React from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import ManageMoneyButton from "./listElementButtons/manageMoneyButton";
 import Icon from "react-native-vector-icons/FontAwesome";
+import roundToTwoDecimalPlaces from "../../../utils/roundNumber";
 
 const CurrencyListElement = (props) => {
   const handleDelete = () => {
@@ -47,7 +48,8 @@ const CurrencyListElement = (props) => {
 
       <View>
         <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-          {props.currencyShortName} {props.numberOfUnits}
+          {props.currencyShortName}{" "}
+          {roundToTwoDecimalPlaces(props.numberOfUnits)}
         </Text>
         <Text>{props.currencyName}</Text>
       </View>
