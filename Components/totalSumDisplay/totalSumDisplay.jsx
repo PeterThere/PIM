@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import roundToTwoDecimalPlaces from "../../utils/roundNumber";
+import CurrencyDropdown from "./currenciesDropdown/CurrDropdown";
 
 const TotalSumDisplay = (props) => {
   const { currency, items } = props;
@@ -15,6 +16,11 @@ const TotalSumDisplay = (props) => {
   useEffect(() => {
     calculateSum();
   }, [items, props.exchangeRates]);
+
+  const setCurrency = (currencyShortName) => {
+    props.setCurrency(currencyShortName);
+    setIsCurrencyPopUpVisible(false);
+  };
 
   const calculateSum = () => {
     let sum = 0;
@@ -32,24 +38,29 @@ const TotalSumDisplay = (props) => {
   };
 
   return (
-    <View
-      style={{
-        backgroundColor: "orange",
-        padding: 20,
-        margin: 20,
-        borderRadius: 10,
-        display: "flex",
-        bottom: 0,
-        zIndex: 999,
-        position: "absolute",
-      }}
-    >
-      <Pressable onPress={handlePress}>
-        <Text style={{ fontSize: 24, fontWeight: "bold" }}>You have</Text>
-        <Text style={{ fontSize: 24, fontWeight: "bold" }}>
-          {sum} {currency}
-        </Text>
-      </Pressable>
+    <View style={{ bottom: 0, zIndex: 999, position: "absolute" }}>
+      <CurrencyDropdown
+        isCurrencyPopUpVisible={isCurrencyPopUpVisible}
+        setCurrency={setCurrency}
+      />
+
+      <View
+        style={{
+          backgroundColor: "orange",
+          padding: 20,
+          margin: 20,
+          borderRadius: 10,
+          display: "flex",
+          width: 300,
+        }}
+      >
+        <Pressable onPress={handlePress}>
+          <Text style={{ fontSize: 24, fontWeight: "bold" }}>You have</Text>
+          <Text style={{ fontSize: 24, fontWeight: "bold" }}>
+            {sum} {currency}
+          </Text>
+        </Pressable>
+      </View>
     </View>
   );
 };

@@ -11,7 +11,7 @@ import { getCurrencyMap } from "./api/firebaseFunctions";
 import USureToDeletePopup from "./Components/popUps/uSureDeletePopup";
 
 export default function App() {
-  const [moneyCurrency, setmoneyCurrency] = useState("PLN");
+  const [moneyCurrency, setMoneyCurrency] = useState("PLN");
   const [exchangeRates, setExchangeRates] = useState([]);
   const [myCurrenciesBalances, setMyCurrenciesBalances] = useState([]);
 
@@ -111,6 +111,7 @@ export default function App() {
         currency={moneyCurrency}
         changeCurrency={changeCurrency}
         updateCurrencyNum={updateCurrencyNum}
+        setCurrency={setMoneyCurrency}
       />
     </View>
   );

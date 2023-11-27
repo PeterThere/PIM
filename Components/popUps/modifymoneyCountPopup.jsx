@@ -67,8 +67,8 @@ function ModifyMoneyCountPopup(props) {
       <TouchableOpacity onPress={closePopup} style={xStyle}>
         <Text>X</Text>
       </TouchableOpacity>
-      <Text>
-        {isAdd ? "Add" : "Subtract"} {currencyShortName}
+      <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+        {isAdd ? "Add to" : "Subtract from"} {currencyShortName}
       </Text>
       <TextInput
         placeholder="How much..."
@@ -77,7 +77,7 @@ function ModifyMoneyCountPopup(props) {
         onChangeText={handleMoneyCountChange}
         defaultValue={moneyCount} // Set the initial value here
       />
-      <Button title="Submit" onPress={handleButtonPress} />
+      <Button title="Submit" onPress={handleButtonPress} color={"black"} />
     </View>
   );
 }
