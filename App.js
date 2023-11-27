@@ -49,13 +49,9 @@ export default function App() {
     setPopupCurrencyShortName(currencyShortName);
   };
 
-  const changeCurrency = (currencyShortName) => {
-    setmoneyCurrency(currencyShortName);
-  };
-
   const fetchRates = async () => {
-    console.log("fetching rates");
-    const data = await fetchExchangeRates();
+    console.log("HERE " + moneyCurrency);
+    const data = await fetchExchangeRates(moneyCurrency);
     setExchangeRates(data.rates);
     return data;
   };
@@ -69,16 +65,18 @@ export default function App() {
   // setInterval(fetchRates, 10000);
 
   const fetchMyCurrenciesBalances = () => {
-    var currBalances = [];
-    getCurrencyMap().then((data) => {
-      Object.entries(data).forEach((entry) => {
-        currBalances.push({
-          currencyShortName: entry[0],
-          currencyName: entry[1]["fullName"],
-          numberOfUnits: entry[1]["value"],
+    fetchRates().then(() => {
+      var currBalances = [];
+      getCurrencyMap().then((data) => {
+        Object.entries(data).forEach((entry) => {
+          currBalances.push({
+            currencyShortName: entry[0],
+            currencyName: entry[1]["fullName"],
+            numberOfUnits: entry[1]["value"],
+          });
         });
+        setMyCurrenciesBalances(currBalances);
       });
-      setMyCurrenciesBalances(currBalances);
     });
   };
 
@@ -109,9 +107,9 @@ export default function App() {
         exchangeRates={exchangeRates}
         items={myCurrenciesBalances}
         currency={moneyCurrency}
-        changeCurrency={changeCurrency}
         updateCurrencyNum={updateCurrencyNum}
         setCurrency={setMoneyCurrency}
+        fetchMyCurrenciesBalances={fetchMyCurrenciesBalances}
       />
     </View>
   );

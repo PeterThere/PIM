@@ -18,8 +18,10 @@ const TotalSumDisplay = (props) => {
   }, [items, props.exchangeRates]);
 
   const setCurrency = (currencyShortName) => {
+    console.log(currencyShortName);
     props.setCurrency(currencyShortName);
     setIsCurrencyPopUpVisible(false);
+    props.fetchMyCurrenciesBalances();
   };
 
   const calculateSum = () => {
@@ -27,10 +29,6 @@ const TotalSumDisplay = (props) => {
     if (!items) return 0;
     items.forEach((item) => {
       const exchangeRate = props.exchangeRates[item.currencyShortName];
-
-      // console.log(item.currencyShortName);
-      // console.log(item.numberOfUnits);
-      // console.log(exchangeRate);
 
       sum += parseFloat(item.numberOfUnits) * exchangeRate;
     });
