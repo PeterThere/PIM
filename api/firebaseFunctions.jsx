@@ -1,5 +1,6 @@
 import {
   doc,
+  getDoc,
   setDoc,
   collection,
   getDocs,
@@ -14,6 +15,14 @@ export const setCurrencyAmount = async (symbol, value) => {
     value: value,
   });
   // console.log(symbol + "saved at: " + value);
+};
+export const setBase = async (symbol) => {
+  await setDoc(doc(FIRESTORE_DB, "rates", "base"), { name: symbol });
+};
+
+export const getBase = async () => {
+  const docSnap = await getDoc(doc(FIRESTORE_DB, "rates", "base"));
+  return docSnap.data().name;
 };
 
 export const deleteCurrency = async (symbol) => {
