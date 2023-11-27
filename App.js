@@ -42,7 +42,6 @@ export default function App() {
     },
   ];
 
-  const [moneySumInOneCurrency, setMoneySumInOneCurrency] = useState(0);
   const [moneyCurrency, setmoneyCurrency] = useState("PLN");
   const [myCurrenciesBalances, setMyCurrenciesBalances] = useState([]);
 
@@ -50,13 +49,18 @@ export default function App() {
   const [popupIsAdd, setPopupIsAdd] = useState(false);
   const [popupCurrencyShortName, setPopupCurrencyShortName] = useState("");
 
+  const [exchangeRates, setExchangeRates] = useState([]);  
+
   useEffect(() => {
     fetchMyCurrenciesBalances();
+    fetchRates();
   }, []);
 
+  
+
   const updateItems = (items) => {
+    console.log(items);
     setMyCurrenciesBalances(items);
-    setMoneySumInOneCurrency(calculateSum(items));
   };
 
   const updateCurrencyNum = (currencyShortName, numberOfUnits) => {
@@ -84,6 +88,7 @@ export default function App() {
 
   const fetchRates = async () => {
     const data = await fetchExchangeRates();
+    setExchangeRates(data.rates);
     return data;
   };
 
@@ -95,9 +100,11 @@ export default function App() {
     return sum;
   };
 
+  // Run the function every 10 seconds
+  setInterval(fetchRates, 10000);
+
   const fetchMyCurrenciesBalances = () => {
-    setMyCurrenciesBalances(examples);
-    setMoneySumInOneCurrency(calculateSum(examples));
+    updateItems(examples);
   };
 
   // fetchRates().then((data) => console.log(data));
@@ -118,7 +125,8 @@ export default function App() {
         showCurrencyPopUp={showCurrencyPopUp}
       />
       <TotalSumDisplay
-        sum={moneySumInOneCurrency}
+        exchangeRates={exchangeRates}
+        items={myCurrenciesBalances}
         currency={moneyCurrency}
         changeCurrency={changeCurrency}
         updateCurrencyNum={updateCurrencyNum}

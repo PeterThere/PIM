@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import roundNumber from "../../utils/roundNumber";
 
 const TotalSumDisplay = (props) => {
-  const sum = roundNumber(props.sum);
-  const { currency } = props;
-  const [isCurrencyPopUpVisible, setIsCurrencyPopUpVisible] =
-    React.useState(false);
+  const { exchangeRates, currency } = props;
+  const items =  props.items;
+  const [isCurrencyPopUpVisible, setIsCurrencyPopUpVisible] = useState(false);
+  const [sum, setSum] = useState(0);
 
   const handlePress = () => {
     setIsCurrencyPopUpVisible(!isCurrencyPopUpVisible);
+  };
+
+  useEffect(() => {
+    calculateSum();
+  }, [items]);
+
+  const calculateSum = () => {
+    let sum = 0;
+    console.log("ASFHDKASDFKAS" + items);
+    items ? () => {items.forEach((item) => {
+      sum += parseFloat(item.numberOfUnits);
+    });} : () => {setSum(sum)};
+    
+    setSum(sum);
   };
 
   return (
