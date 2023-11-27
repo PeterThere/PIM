@@ -8,16 +8,20 @@ import AddButton from "./Components/addButton/addButton";
 import ModifyMoneyCountPopup from "./Components/popUps/modifymoneyCountPopup";
 import roundNumber from "./utils/roundNumber";
 import { getCurrencyMap } from "./api/firebaseFunctions";
+import USureToDeletePopup from "./Components/popUps/uSureDeletePopup";
 
 export default function App() {
   const [moneyCurrency, setmoneyCurrency] = useState("PLN");
+  const [exchangeRates, setExchangeRates] = useState([]);
   const [myCurrenciesBalances, setMyCurrenciesBalances] = useState([]);
 
   const [isCurrencyPopUpVisible, setIsCurrencyPopUpVisible] = useState(false);
   const [popupIsAdd, setPopupIsAdd] = useState(false);
-  const [popupCurrencyShortName, setPopupCurrencyShortName] = useState("");
 
-  const [exchangeRates, setExchangeRates] = useState([]);
+  const [isPopupSureToDeleteVisible, setIsPopupSureToDeleteVisible] =
+    useState(false);
+
+  const [popupCurrencyShortName, setPopupCurrencyShortName] = useState("");
 
   useEffect(() => {
     fetchMyCurrenciesBalances();
@@ -29,7 +33,7 @@ export default function App() {
   };
 
   const updateCurrencyNum = (currencyShortName, numberOfUnits) => {
-    hideCurrencyPopUp();
+    setIsCurrencyPopUpVisible(false);
     const newItems = myCurrenciesBalances.map((item) => {
       if (item.currencyShortName === currencyShortName) {
         item.numberOfUnits = roundNumber(numberOfUnits);
@@ -45,10 +49,6 @@ export default function App() {
     setPopupCurrencyShortName(currencyShortName);
   };
 
-  const hideCurrencyPopUp = () => {
-    setIsCurrencyPopUpVisible(false);
-  };
-
   const changeCurrency = (currencyShortName) => {
     setmoneyCurrency(currencyShortName);
   };
@@ -60,17 +60,22 @@ export default function App() {
     return data;
   };
 
+  const onItemDelete = (currShortName) => {
+    setPopupCurrencyShortName(currShortName);
+    setIsPopupSureToDeleteVisible(true);
+  };
+
   // Run the function every 10 seconds
-  setInterval(fetchRates, 910000);
+  // setInterval(fetchRates, 10000);
 
   const fetchMyCurrenciesBalances = () => {
     var currBalances = [];
     getCurrencyMap().then((data) => {
-      data.forEach((value, key) => {
+      Object.entries(data).forEach((entry) => {
         currBalances.push({
-          currencyName: "JP2",
-          currencyShortName: key,
-          numberOfUnits: value,
+          currencyShortName: entry[0],
+          currencyName: entry[1]["fullName"],
+          numberOfUnits: entry[1]["value"],
         });
       });
       setMyCurrenciesBalances(currBalances);
@@ -79,19 +84,26 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <AddButton />
+      <AddButton fetchMyCurrenciesBalances={fetchMyCurrenciesBalances} />
       <ModifyMoneyCountPopup
         isVisible={isCurrencyPopUpVisible}
         isAdd={popupIsAdd}
         currencyShortName={popupCurrencyShortName}
         items={myCurrenciesBalances}
         updateCurrencyNum={updateCurrencyNum}
-        closePopup={hideCurrencyPopUp}
+        setIsCurrencyPopUpVisible={setIsCurrencyPopUpVisible}
+      />
+      <USureToDeletePopup
+        fetchMyCurrenciesBalances={fetchMyCurrenciesBalances}
+        isVisible={isPopupSureToDeleteVisible}
+        setIsPopupSureToDeleteVisible={setIsPopupSureToDeleteVisible}
+        currencyToDelete={popupCurrencyShortName}
       />
       <ScrolledList
         items={myCurrenciesBalances}
         updateItems={updateItems}
         showCurrencyPopUp={showCurrencyPopUp}
+        onItemDelete={onItemDelete}
       />
       <TotalSumDisplay
         exchangeRates={exchangeRates}

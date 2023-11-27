@@ -13,7 +13,7 @@ export const setCurrencyAmount = async (symbol, value) => {
     fullName: data.symbols[symbol],
     value: value,
   });
-  console.log(symbol + "saved at: " + value);
+  // console.log(symbol + "saved at: " + value);
 };
 
 export const deleteCurrency = async (symbol) => {

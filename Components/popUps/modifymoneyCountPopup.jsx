@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, Button, TextInput, TouchableOpacity } from "react-native";
+import { setCurrencyAmount } from "../../api/firebaseFunctions";
 
 function ModifyMoneyCountPopup(props) {
   const [moneyCount, setMoneyCount] = useState("0");
@@ -8,9 +9,7 @@ function ModifyMoneyCountPopup(props) {
     setMoneyCount(value);
   };
 
-  const currencyShortName = props.currencyShortName;
-  const isAdd = props.isAdd;
-  const isVisible = props.isVisible;
+  const { currencyShortName, isAdd, isVisible } = props;
 
   handleButtonPress = () => {
     numberOfUnits = props.items.filter(
@@ -19,6 +18,7 @@ function ModifyMoneyCountPopup(props) {
     numberOfUnits = isAdd
       ? parseFloat(numberOfUnits) + parseFloat(moneyCount)
       : parseFloat(numberOfUnits) - parseFloat(moneyCount);
+    setCurrencyAmount(currencyShortName, numberOfUnits);
     props.updateCurrencyNum(currencyShortName, numberOfUnits);
   };
 
@@ -58,9 +58,13 @@ function ModifyMoneyCountPopup(props) {
     return null;
   }
 
+  const closePopup = () => {
+    props.setIsCurrencyPopUpVisible(false);
+  };
+
   return (
     <View style={popupStyle}>
-      <TouchableOpacity onPress={props.closePopup} style={xStyle}>
+      <TouchableOpacity onPress={closePopup} style={xStyle}>
         <Text>X</Text>
       </TouchableOpacity>
       <Text>

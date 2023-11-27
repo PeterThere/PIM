@@ -4,9 +4,7 @@ import CurrencyListElement from "./currencyListElement/currencyListElement";
 
 const ScrolledList = (props) => {
   const onDelete = (currencyShortName) => {
-    props.updateItems(
-      props.items.filter((item) => item.currencyShortName !== currencyShortName)
-    );
+    props.onItemDelete(currencyShortName);
   };
 
   return (

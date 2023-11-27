@@ -21,6 +21,11 @@ const TotalSumDisplay = (props) => {
     if (!items) return 0;
     items.forEach((item) => {
       const exchangeRate = props.exchangeRates[item.currencyShortName];
+
+      // console.log(item.currencyShortName);
+      // console.log(item.numberOfUnits);
+      // console.log(exchangeRate);
+
       sum += parseFloat(item.numberOfUnits) * exchangeRate;
     });
     setSum(roundToTwoDecimalPlaces(sum));
