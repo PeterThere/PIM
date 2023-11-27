@@ -7,41 +7,9 @@ import { useEffect, useState } from "react";
 import AddButton from "./Components/addButton/addButton";
 import ModifyMoneyCountPopup from "./Components/popUps/modifymoneyCountPopup";
 import roundNumber from "./utils/roundNumber";
+import { getCurrencyMap } from "./api/firebaseFunctions";
 
 export default function App() {
-  const examples = [
-    {
-      currencyName: "Canadian Dollar",
-      currencyShortName: "CAD",
-      numberOfUnits: 150,
-    },
-    {
-      currencyName: "Swiss Franc",
-      currencyShortName: "CHF",
-      numberOfUnits: 75,
-    },
-    {
-      currencyName: "Australian Dollar",
-      currencyShortName: "AUD",
-      numberOfUnits: 300,
-    },
-    {
-      currencyName: "New Zealand Dollar",
-      currencyShortName: "NZD",
-      numberOfUnits: 250,
-    },
-    {
-      currencyName: "Mexican Peso",
-      currencyShortName: "MXN",
-      numberOfUnits: 1000,
-    },
-    {
-      currencyName: "Chinese Yuan",
-      currencyShortName: "CNY",
-      numberOfUnits: 800,
-    },
-  ];
-
   const [moneyCurrency, setmoneyCurrency] = useState("PLN");
   const [myCurrenciesBalances, setMyCurrenciesBalances] = useState([]);
 
@@ -81,7 +49,9 @@ export default function App() {
     setIsCurrencyPopUpVisible(false);
   };
 
-  const changeCurrency = () => {};
+  const changeCurrency = (currencyShortName) => {
+    setmoneyCurrency(currencyShortName);
+  };
 
   const fetchRates = async () => {
     console.log("fetching rates");
@@ -90,26 +60,26 @@ export default function App() {
     return data;
   };
 
-  const calculateSum = (items) => {
-    let sum = 0;
-    items.forEach((item) => {
-      sum += parseFloat(item.numberOfUnits);
-    });
-    return sum;
-  };
-
   // Run the function every 10 seconds
   setInterval(fetchRates, 910000);
 
   const fetchMyCurrenciesBalances = () => {
-    updateItems(examples);
+    var currBalances = [];
+    getCurrencyMap().then((data) => {
+      data.forEach((value, key) => {
+        currBalances.push({
+          currencyName: "JP2",
+          currencyShortName: key,
+          numberOfUnits: value,
+        });
+      });
+      setMyCurrenciesBalances(currBalances);
+    });
   };
-
-  // fetchRates().then((data) => console.log(data));
 
   return (
     <View style={styles.container}>
-      <AddButton></AddButton>
+      <AddButton />
       <ModifyMoneyCountPopup
         isVisible={isCurrencyPopUpVisible}
         isAdd={popupIsAdd}

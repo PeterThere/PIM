@@ -17,6 +17,6 @@ export const getCurrencyMap = async () => {
       data.set(doc.id, doc.data().value);
     });
   });
-  console.log(data);
+  // console.log(data);
   return data;
 };
