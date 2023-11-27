@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import AddButton from "./Components/addButton/addButton";
 import ModifyMoneyCountPopup from "./Components/popUps/modifymoneyCountPopup";
 import roundNumber from "./utils/roundNumber";
-import { getCurrencyMap } from "./api/firebaseFunctions";
+import { getCurrencyMap, getBase, setBase } from "./api/firebaseFunctions";
 import USureToDeletePopup from "./Components/popUps/uSureDeletePopup";
 
 export default function App() {
@@ -23,9 +23,15 @@ export default function App() {
 
   const [popupCurrencyShortName, setPopupCurrencyShortName] = useState("");
 
+  const setMoneyCurrencyFromBase = async () => {
+    const baseCurrency = await getBase();
+    setMoneyCurrency(baseCurrency);
+  };
+
   useEffect(() => {
     fetchMyCurrenciesBalances();
     fetchRates();
+    setMoneyCurrencyFromBase();
   }, []);
 
   const updateItems = (items) => {
@@ -49,9 +55,14 @@ export default function App() {
     setPopupCurrencyShortName(currencyShortName);
   };
 
-  const fetchRates = async () => {
-    console.log("HERE " + moneyCurrency);
-    const data = await fetchExchangeRates(moneyCurrency);
+  const changeCurrency = (newCurrency) => {
+    setBase(newCurrency);
+    setMoneyCurrency(newCurrency);
+    fetchRates(newCurrency);
+  };
+
+  const fetchRates = async (newCurrency) => {
+    const data = await fetchExchangeRates(newCurrency);
     setExchangeRates(data.rates);
     return data;
   };
@@ -108,7 +119,7 @@ export default function App() {
         items={myCurrenciesBalances}
         currency={moneyCurrency}
         updateCurrencyNum={updateCurrencyNum}
-        setCurrency={setMoneyCurrency}
+        setCurrency={changeCurrency}
         fetchMyCurrenciesBalances={fetchMyCurrenciesBalances}
       />
     </View>
