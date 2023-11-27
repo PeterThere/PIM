@@ -9,14 +9,29 @@ import {
 } from "../../api/firebaseFunctions";
 export const AddButton = () => {
   return (
-    <View style={{ marginTop: 100 }}>
+    <View style={{ marginTop: 120 }}>
+      <Text
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "orange",
+          padding: 10,
+          borderRadius: 10,
+          fontSize: 20,
+          fontWeight: "bold",
+          marginTop: "10%",
+        }}
+      >
+        Add new currency
+      </Text>
       <SelectDropdown
         data={data.symbols}
         onSelect={(selectedItem) => {
           //Tutaj można jakiegoś ładnego prompta jebnąć w sumie
           setCurrencyAmount(selectedItem, 0);
         }}
-        defaultButtonText={"Select currency"}
+        defaultButtonText={"Select new currency"}
         buttonTextAfterSelection={(selectedItem) => {
           return selectedItem;
         }}

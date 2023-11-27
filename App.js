@@ -84,6 +84,7 @@ export default function App() {
   const changeCurrency = () => {};
 
   const fetchRates = async () => {
+    console.log("fetching rates");
     const data = await fetchExchangeRates();
     setExchangeRates(data.rates);
     return data;
@@ -98,7 +99,7 @@ export default function App() {
   };
 
   // Run the function every 10 seconds
-  setInterval(fetchRates, 10000);
+  setInterval(fetchRates, 910000);
 
   const fetchMyCurrenciesBalances = () => {
     updateItems(examples);
@@ -115,6 +116,7 @@ export default function App() {
         currencyShortName={popupCurrencyShortName}
         items={myCurrenciesBalances}
         updateCurrencyNum={updateCurrencyNum}
+        closePopup={hideCurrencyPopUp}
       />
       <ScrolledList
         items={myCurrenciesBalances}

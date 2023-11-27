@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Button, TextInput } from "react-native";
+import { View, Text, Button, TextInput, TouchableOpacity } from "react-native";
 
 function ModifyMoneyCountPopup(props) {
   const [moneyCount, setMoneyCount] = useState("0");
@@ -35,6 +35,15 @@ function ModifyMoneyCountPopup(props) {
     alignItems: "center",
   };
 
+  const xStyle = {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    fontSize: 20,
+    padding: 10,
+    paddingRight: 20,
+  };
+
   const inputStyle = {
     borderWidth: 1,
     borderColor: "gray",
@@ -51,6 +60,9 @@ function ModifyMoneyCountPopup(props) {
 
   return (
     <View style={popupStyle}>
+      <TouchableOpacity onPress={props.closePopup} style={xStyle}>
+        <Text>X</Text>
+      </TouchableOpacity>
       <Text>
         {isAdd ? "Add" : "Subtract"} {currencyShortName}
       </Text>

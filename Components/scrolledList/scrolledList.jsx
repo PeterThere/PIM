@@ -12,7 +12,7 @@ const ScrolledList = (props) => {
   return (
     <View>
       <ScrollView>
-        <View style={{ marginTop: 20, marginBottom: 180 }}>
+        <View style={{ marginTop: 5, marginBottom: 250 }}>
           {props.items.map((item, index) => (
             <CurrencyListElement
               key={index}

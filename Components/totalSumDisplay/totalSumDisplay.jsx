@@ -40,8 +40,9 @@ const TotalSumDisplay = (props) => {
       }}
     >
       <Pressable onPress={handlePress}>
-        <Text style={{ fontSize: 24, color: "white" }}>
-          You have {sum} {currency}
+        <Text style={{ fontSize: 24, fontWeight: "bold" }}>You have</Text>
+        <Text style={{ fontSize: 24, fontWeight: "bold" }}>
+          {sum} {currency}
         </Text>
       </Pressable>
     </View>
