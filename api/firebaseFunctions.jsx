@@ -22,7 +22,7 @@ export const setBase = async (symbol) => {
 
 export const getBase = async () => {
   const docSnap = await getDoc(doc(FIRESTORE_DB, "rates", "base"));
-  return docSnap.data.name;
+  return docSnap.data().name;
 };
 
 export const deleteCurrency = async (symbol) => {
