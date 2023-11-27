@@ -1,4 +1,10 @@
-import { doc, setDoc, collection, getDocs } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  collection,
+  getDocs,
+  deleteDoc,
+} from "firebase/firestore";
 import { FIRESTORE_DB } from "../firebaseConfig";
 import * as data from "../data/symbols.json";
 //Tworzy dokument o nazwie {symbol}, z polem value o wartości {value}
@@ -10,6 +16,9 @@ export const setCurrencyAmount = async (symbol, value) => {
   console.log(symbol + "saved at: " + value);
 };
 
+export const deleteCurrency = async (symbol) => {
+  await deleteDoc(doc(FIRESTORE_DB, "rates", symbol));
+};
 export const getCurrencyMap = async () => {
   let data = {};
   await getDocs(collection(FIRESTORE_DB, "rates")).then((querySnapshot) => {
