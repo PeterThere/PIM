@@ -1,20 +1,23 @@
 import { doc, setDoc, collection, getDocs } from "firebase/firestore";
 import { FIRESTORE_DB } from "../firebaseConfig";
-
+import * as data from "../data/symbols.json";
 //Tworzy dokument o nazwie {symbol}, z polem value o wartości {value}
 export const setCurrencyAmount = async (symbol, value) => {
   await setDoc(doc(FIRESTORE_DB, "rates", symbol), {
+    fullName: data.symbols[symbol],
     value: value,
   });
   console.log(symbol + "saved at: " + value);
 };
 
-//Zwraca mapę z kluczem(symbol waluty) i wartością(ilość waluty w skarbonce) eg. {"PLN" => 100}
-export const getCurrencyMap = async () => {
-  const data = new Map();
+export const getCurrencyObject = async () => {
+  let data = {};
   await getDocs(collection(FIRESTORE_DB, "rates")).then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
-      data.set(doc.id, doc.data().value);
+      data[doc.id] = {
+        fullName: doc.data().fullName,
+        value: doc.data().value,
+      };
     });
   });
   // console.log(data);

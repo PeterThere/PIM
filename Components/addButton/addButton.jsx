@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import * as data from "../../data/symbols.json";
-import {
-  getCurrencyList,
-  setCurrencyAmount,
-} from "../../api/firebaseFunctions";
+import { setCurrencyAmount } from "../../api/firebaseFunctions";
 export const AddButton = () => {
   return (
     <View style={{ marginTop: 120 }}>
@@ -26,7 +22,7 @@ export const AddButton = () => {
         Add new currency
       </Text>
       <SelectDropdown
-        data={data.symbols}
+        data={Object.keys(data.symbols)}
         onSelect={(selectedItem) => {
           //Tutaj można jakiegoś ładnego prompta jebnąć w sumie
           setCurrencyAmount(selectedItem, 0);
