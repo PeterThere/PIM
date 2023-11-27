@@ -1,8 +1,9 @@
 import React from "react";
 import { Pressable, Text, View } from "react-native";
+import roundNumber from "../../utils/roundNumber";
 
 const TotalSumDisplay = (props) => {
-  const { sum } = props;
+  const sum = roundNumber(props.sum);
   const { currency } = props;
   const [isCurrencyPopUpVisible, setIsCurrencyPopUpVisible] =
     React.useState(false);

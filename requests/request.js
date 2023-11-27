@@ -1,6 +1,6 @@
-import setup from "../setup.json";
+// import setup from "../setup.json";
 
-const API_KEY = setup.password;
+const API_KEY = 'setup.password';
 const url = `http://api.exchangeratesapi.io/v1/latest?access_key=${API_KEY}`;
 
 const mockedResponse = {

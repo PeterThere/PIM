@@ -6,6 +6,7 @@ import ScrolledList from "./Components/scrolledList/scrolledList";
 import { useEffect, useState } from "react";
 import AddButton from "./Components/addButton/addButton";
 import ModifyMoneyCountPopup from "./Components/popUps/modifymoneyCountPopup";
+import roundNumber from "./utils/roundNumber";
 
 export default function App() {
   const examples = [
@@ -62,7 +63,7 @@ export default function App() {
     hideCurrencyPopUp();
     const newItems = myCurrenciesBalances.map((item) => {
       if (item.currencyShortName === currencyShortName) {
-        item.numberOfUnits = numberOfUnits;
+        item.numberOfUnits = roundNumber(numberOfUnits);
       }
       return item;
     });
@@ -89,7 +90,7 @@ export default function App() {
   const calculateSum = (items) => {
     let sum = 0;
     items.forEach((item) => {
-      sum += item.numberOfUnits;
+      sum += parseFloat(item.numberOfUnits);
     });
     return sum;
   };
