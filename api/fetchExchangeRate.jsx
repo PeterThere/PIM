@@ -13,13 +13,13 @@ _storeData = async (symbol, rate) => {
   }
 };
 
-export const fetchExchangeRate = async (baza, symbolsList) => {
+export const fetchExchangeRate = async (symbolsList) => {
   axios({
     url: `${baseUrl}/v1/latest`,
     method: "GET",
     params: {
       access_key: "4ab8f6af98f8b5b3c8dab0b795290a2f",
-      base: baza,
+      base: "",
       symbols: symbolsList,
     },
   }).then((response) => {
