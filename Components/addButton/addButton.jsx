@@ -10,21 +10,6 @@ export const AddButton = (props) => {
 
   return (
     <View style={{ marginTop: 120 }}>
-      <Text
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "orange",
-          padding: 10,
-          borderRadius: 10,
-          fontSize: 20,
-          fontWeight: "bold",
-          marginTop: "10%",
-        }}
-      >
-        Add new currency
-      </Text>
       <SelectDropdown
         data={Object.keys(data.symbols)}
         onSelect={(selectedItem) => {
@@ -32,13 +17,7 @@ export const AddButton = (props) => {
           setCurrencyAmount(selectedItem, 0);
           fetchMyBalances();
         }}
-        defaultButtonText={"Select new currency"}
-        buttonTextAfterSelection={(selectedItem) => {
-          return selectedItem;
-        }}
-        rowTextForSelection={(item) => {
-          return item;
-        }}
+        defaultButtonText={"Add new currency"}
         buttonStyle={styles.dropdown1BtnStyle}
         buttonTextStyle={styles.dropdown1BtnTxtStyle}
         dropdownStyle={styles.dropdown1DropdownStyle}
