@@ -1,20 +1,18 @@
 import React, { useState } from "react";
 import { View, TextInput, Button } from "react-native";
 import { FIREBASE_AUTH } from "../../../firebaseConfig";
-
-const SignUpScreen = () => {
+import { createUserWithEmailAndPassword } from "firebase/auth";
+const SignUpScreen = ({ onSuccessSignUp, onCancel }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const handleSignUp = () => {
-    FIREBASE_AUTH.createUserWithEmailAndPassword(email, password)
+    createUserWithEmailAndPassword(FIREBASE_AUTH, email, password)
       .then((userCredential) => {
-        // Signed up successfully
         const user = userCredential.user;
         console.log("User signed up:", user);
+        onSuccessSignUp();
       })
       .catch((error) => {
-        // Handle sign up errors
         console.error("Sign up error:", error);
       });
   };
@@ -33,6 +31,7 @@ const SignUpScreen = () => {
         value={password}
       />
       <Button title="Sign Up" onPress={handleSignUp} />
+      <Button title="Back" onPress={() => onCancel()} />
     </View>
   );
 };

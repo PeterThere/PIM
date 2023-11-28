@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { View, TextInput, Button } from "react-native";
 import { FIREBASE_AUTH } from "../../../firebaseConfig";
-
-const SignInScreen = () => {
+import { signInWithEmailAndPassword } from "firebase/auth";
+const SignInScreen = ({ onSuccessSignIn, onCancel }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSignIn = () => {
-    FIREBASE_AUTH.signInWithEmailAndPassword(email, password)
+    signInWithEmailAndPassword(FIREBASE_AUTH, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log("User signed in:", user);
+        onSuccessSignIn();
       })
       .catch((error) => {
         console.error("Sign in error:", error);
@@ -31,6 +32,7 @@ const SignInScreen = () => {
         value={password}
       />
       <Button title="Sign In" onPress={handleSignIn} />
+      <Button title="Back" onPress={() => onCancel()} />
     </View>
   );
 };
