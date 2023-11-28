@@ -103,19 +103,16 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleSignUpSuccess = () => {
-    console.log("DUPA");
     setIsSignUpVisible(false);
     setIsLoggedIn(true);
   };
 
   const handleSignInSuccess = () => {
-    console.log("CHUJ");
     setIsSignInVisible(false);
     setIsLoggedIn(true);
   };
 
   const handleLogout = () => {
-    console.log("CIPA");
     setIsLoggedIn(false);
   };
 
