@@ -31,7 +31,7 @@ export default function App() {
 
   useEffect(() => {
     fetchMyCurrenciesBalances();
-    fetchRates();
+    // fetchRates();
     setMoneyCurrencyFromBase();
   }, []);
 
@@ -73,7 +73,12 @@ export default function App() {
 
     // console.log("resString: " + resString);
 
-    fetchExchangeRate("PLN", "EUR, USD");
+    for (let i = 0; i < 10; i++) {
+      try {
+        fetchExchangeRate("PLN", "EUR, USD");
+        break;
+      } catch (error) {}
+    }
   };
 
   const onItemDelete = (currShortName) => {

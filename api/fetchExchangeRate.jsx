@@ -14,13 +14,13 @@ _storeData = async (symbol, rate) => {
 };
 
 export const fetchExchangeRate = async (baza, symbolsList) => {
-  axios({
+  await axios({
     url: `${baseUrl}/v1/latest`,
     method: "GET",
     params: {
       access_key: "4ab8f6af98f8b5b3c8dab0b795290a2f",
-      base: baza,
-      symbols: symbolsList,
+      base: "PLN",
+      symbols: "EUR, USD",
     },
   }).then((response) => {
     console.log(
