@@ -31,8 +31,7 @@ export default function App() {
 
   useEffect(() => {
     fetchMyCurrenciesBalances();
-    fetchRates();
-    setMoneyCurrencyFromBase();
+    -setMoneyCurrencyFromBase();
   }, []);
 
   const updateItems = (items) => {
@@ -63,15 +62,10 @@ export default function App() {
   };
 
   const fetchRates = (newCurrency) => {
-    // console.log("fetching rates " + newCurrency);
     let resString = "";
     myCurrenciesBalances.forEach((item) => {
       resString += item.currencyShortName + ", ";
     });
-
-    // resString = resString.slice(0, -2);
-
-    // console.log("resString: " + resString);
 
     fetchExchangeRate("", resString);
   };
