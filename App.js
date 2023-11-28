@@ -14,7 +14,6 @@ import SignInScreen from "./Components/auth/signIn/signIn";
 import SignUpScreen from "./Components/auth/signUp/signUp";
 export default function App() {
   const [moneyCurrency, setMoneyCurrency] = useState("PLN");
-  const [exchangeRates, setExchangeRates] = useState([]);
   const [myCurrenciesBalances, setMyCurrenciesBalances] = useState([]);
 
   const [isCurrencyPopUpVisible, setIsCurrencyPopUpVisible] = useState(false);
@@ -63,15 +62,18 @@ export default function App() {
     fetchRates(newCurrency);
   };
 
-  const fetchRates = async (newCurrency) => {
+  const fetchRates = (newCurrency) => {
+    // console.log("fetching rates " + newCurrency);
     let resString = "";
     myCurrenciesBalances.forEach((item) => {
       resString += item.currencyShortName + ", ";
     });
 
-    const data = await fetchExchangeRate(newCurrency, resString);
-    setExchangeRates(data.rates);
-    return data;
+    // resString = resString.slice(0, -2);
+
+    // console.log("resString: " + resString);
+
+    fetchExchangeRate("PLN", "EUR, USD");
   };
 
   const onItemDelete = (currShortName) => {
@@ -83,18 +85,16 @@ export default function App() {
   // setInterval(fetchRates, 10000);
 
   const fetchMyCurrenciesBalances = () => {
-    fetchRates().then(() => {
-      var currBalances = [];
-      getCurrencyMap().then((data) => {
-        Object.entries(data).forEach((entry) => {
-          currBalances.push({
-            currencyShortName: entry[0],
-            currencyName: entry[1]["fullName"],
-            numberOfUnits: entry[1]["value"],
-          });
+    var currBalances = [];
+    getCurrencyMap().then((data) => {
+      Object.entries(data).forEach((entry) => {
+        currBalances.push({
+          currencyShortName: entry[0],
+          currencyName: entry[1]["fullName"],
+          numberOfUnits: entry[1]["value"],
         });
-        setMyCurrenciesBalances(currBalances);
       });
+      setMyCurrenciesBalances(currBalances);
     });
   };
 
@@ -116,7 +116,7 @@ export default function App() {
     setIsLoggedIn(false);
   };
 
-  if (!isLoggedIn) {
+  if (isLoggedIn) {
     return (
       <View style={styles.container}>
         {isSignUpVisible && (
@@ -166,7 +166,6 @@ export default function App() {
         onItemDelete={onItemDelete}
       />
       <TotalSumDisplay
-        exchangeRates={exchangeRates}
         items={myCurrenciesBalances}
         currency={moneyCurrency}
         updateCurrencyNum={updateCurrencyNum}

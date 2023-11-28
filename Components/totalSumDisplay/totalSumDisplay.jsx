@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import roundToTwoDecimalPlaces from "../../utils/roundNumber";
 import CurrencyDropdown from "./currenciesDropdown/CurrDropdown";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const TotalSumDisplay = (props) => {
   const { currency, items } = props;
@@ -15,7 +16,7 @@ const TotalSumDisplay = (props) => {
 
   useEffect(() => {
     calculateSum();
-  }, [items, props.exchangeRates]);
+  }, [items]);
 
   const setCurrency = (currencyShortName) => {
     console.log(currencyShortName);
@@ -23,16 +24,16 @@ const TotalSumDisplay = (props) => {
     setIsCurrencyPopUpVisible(false);
   };
 
-  const calculateSum = () => {
+  const calculateSum = async () => {
     let sum = 0;
     if (!items) return 0;
-    items.forEach((item) => {
-      const exchangeRate = props.exchangeRates[item.currencyShortName];
+    for (const item of items) {
+      var exchangeRate = await AsyncStorage.getItem(item.currencyShortName);
 
-      var temp = parseFloat(item.numberOfUnits) * exchangeRate;
+      var temp = parseFloat(item.numberOfUnits) * parseFloat(exchangeRate);
 
       sum += temp ? temp : 0;
-    });
+    }
     setSum(roundToTwoDecimalPlaces(sum));
   };
 
