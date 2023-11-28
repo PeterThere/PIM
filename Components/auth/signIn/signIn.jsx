@@ -9,8 +9,7 @@ const SignInScreen = ({ onSuccessSignIn, onCancel }) => {
   const handleSignIn = () => {
     signInWithEmailAndPassword(FIREBASE_AUTH, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        console.log("User signed in:", user);
+        console.log("User signed in!");
         onSuccessSignIn();
       })
       .catch((error) => {

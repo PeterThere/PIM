@@ -8,8 +8,7 @@ const SignUpScreen = ({ onSuccessSignUp, onCancel }) => {
   const handleSignUp = () => {
     createUserWithEmailAndPassword(FIREBASE_AUTH, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        console.log("User signed up:", user);
+        console.log("User signed up!");
         onSuccessSignUp();
       })
       .catch((error) => {

@@ -6,7 +6,7 @@ const LogoutButton = ({ onLogout }) => {
   const handleLogout = () => {
     FIREBASE_AUTH.signOut()
       .then(() => {
-        console.log("User signed out");
+        console.log("User signed out!");
         onLogout();
       })
       .catch((error) => {
