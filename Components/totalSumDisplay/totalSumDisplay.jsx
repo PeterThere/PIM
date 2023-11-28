@@ -33,8 +33,7 @@ const TotalSumDisplay = (props) => {
 
       var temp =
         parseFloat(item.numberOfUnits) *
-        parseFloat(exchangeRate) *
-        parseFloat(1 / baseExchangeRate);
+        parseFloat((1 / exchangeRate) * baseExchangeRate);
 
       sum += temp ? temp : 0;
     }
