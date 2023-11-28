@@ -32,10 +32,12 @@ export const getCurrencyMap = async () => {
   let data = {};
   await getDocs(collection(FIRESTORE_DB, "rates")).then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
-      data[doc.id] = {
-        fullName: doc.data().fullName,
-        value: doc.data().value,
-      };
+      if (doc.id != "base")
+        //XD
+        data[doc.id] = {
+          fullName: doc.data().fullName,
+          value: doc.data().value,
+        };
     });
   });
   // console.log(data);
