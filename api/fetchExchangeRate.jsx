@@ -14,7 +14,7 @@ _storeData = async (symbol, rate) => {
 };
 
 export const fetchExchangeRate = async (baza, symbolsList) => {
-  axios({
+  await axios({
     url: `${baseUrl}/v1/latest`,
     method: "GET",
     params: {
