@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Button, Text, View } from "react-native";
-import fetchExchangeRates from "./requests/request";
+import { fetchExchangeRate } from "./api/fetchExchangeRate";
 import TotalSumDisplay from "./Components/totalSumDisplay/totalSumDisplay";
 import ScrolledList from "./Components/scrolledList/scrolledList";
 import { useEffect, useState } from "react";
@@ -64,7 +64,12 @@ export default function App() {
   };
 
   const fetchRates = async (newCurrency) => {
-    const data = await fetchExchangeRates(newCurrency);
+    let resString = "";
+    myCurrenciesBalances.forEach((item) => {
+      resString += item.currencyShortName + ", ";
+    });
+
+    const data = await fetchExchangeRate(newCurrency, resString);
     setExchangeRates(data.rates);
     return data;
   };
