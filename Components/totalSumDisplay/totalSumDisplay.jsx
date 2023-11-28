@@ -16,7 +16,7 @@ const TotalSumDisplay = (props) => {
 
   useEffect(() => {
     calculateSum();
-  }, [items]);
+  }, [items, currency]);
 
   const setCurrency = (currencyShortName) => {
     console.log(currencyShortName);
@@ -28,9 +28,13 @@ const TotalSumDisplay = (props) => {
     let sum = 0;
     if (!items) return 0;
     for (const item of items) {
+      var baseExchangeRate = await AsyncStorage.getItem(currency);
       var exchangeRate = await AsyncStorage.getItem(item.currencyShortName);
 
-      var temp = parseFloat(item.numberOfUnits) * parseFloat(exchangeRate);
+      var temp =
+        parseFloat(item.numberOfUnits) *
+        parseFloat(exchangeRate) *
+        parseFloat(1 / baseExchangeRate);
 
       sum += temp ? temp : 0;
     }

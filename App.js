@@ -73,7 +73,7 @@ export default function App() {
 
     // console.log("resString: " + resString);
 
-    fetchExchangeRate("PLN", "EUR, USD");
+    fetchExchangeRate("", "EUR, USD");
   };
 
   const onItemDelete = (currShortName) => {
