@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import * as data from "../../data/symbols.json";
@@ -9,22 +9,7 @@ export const AddButton = (props) => {
   };
 
   return (
-    <View style={{ marginTop: 120 }}>
-      <Text
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "orange",
-          padding: 10,
-          borderRadius: 10,
-          fontSize: 20,
-          fontWeight: "bold",
-          marginTop: "10%",
-        }}
-      >
-        Add new currency
-      </Text>
+    <View style={{ marginTop: 150 }}>
       <SelectDropdown
         data={Object.keys(data.symbols)}
         onSelect={(selectedItem) => {
@@ -33,9 +18,6 @@ export const AddButton = (props) => {
           fetchMyBalances();
         }}
         defaultButtonText={"Select new currency"}
-        buttonTextAfterSelection={(selectedItem) => {
-          return selectedItem;
-        }}
         rowTextForSelection={(item) => {
           return item;
         }}

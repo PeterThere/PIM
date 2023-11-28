@@ -15,8 +15,12 @@ const LogoutButton = ({ onLogout }) => {
   };
 
   return (
-    <View>
-      <Button title="Logout" onPress={handleLogout} />
+    <View
+      style={{
+        zIndex: 999,
+      }}
+    >
+      <Button color="orange" title="Logout" onPress={handleLogout} />
     </View>
   );
 };

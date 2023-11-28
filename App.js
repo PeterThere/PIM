@@ -116,7 +116,7 @@ export default function App() {
     setIsLoggedIn(false);
   };
 
-  if (isLoggedIn) {
+  if (!isLoggedIn) {
     return (
       <View style={styles.container}>
         {isSignUpVisible && (
@@ -135,8 +135,16 @@ export default function App() {
 
         {!isSignUpVisible && !isSignInVisible && (
           <View style={styles.authButtons}>
-            <Button title="Sign Up" onPress={() => setIsSignUpVisible(true)} />
-            <Button title="Sign In" onPress={() => setIsSignInVisible(true)} />
+            <Button
+              color="orange"
+              title="Sign Up"
+              onPress={() => setIsSignUpVisible(true)}
+            />
+            <Button
+              color="orange"
+              title="Sign In"
+              onPress={() => setIsSignInVisible(true)}
+            />
           </View>
         )}
       </View>
@@ -190,6 +198,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: "100%",
     alignItems: "center",
+    bottom: 35,
+    left: 140,
   },
   authButtons: {
     flexDirection: "row",

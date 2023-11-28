@@ -41,8 +41,22 @@ const TotalSumDisplay = (props) => {
   };
 
   return (
-    <View style={{ bottom: 0, zIndex: 999, position: "absolute" }}>
+    <View
+      style={{
+        display: "flex",
+        bottom: -5,
+        zIndex: 999,
+        position: "absolute",
+        width: 350,
+      }}
+    >
       <CurrencyDropdown
+        style={{
+          backgroundColor: "orange",
+          padding: 10,
+          margin: 20,
+          borderRadius: 10,
+        }}
         isCurrencyPopUpVisible={isCurrencyPopUpVisible}
         setCurrency={setCurrency}
       />
@@ -50,11 +64,10 @@ const TotalSumDisplay = (props) => {
       <View
         style={{
           backgroundColor: "orange",
-          padding: 20,
+          padding: 10,
           margin: 20,
           borderRadius: 10,
-          display: "flex",
-          width: 300,
+          width: 200,
         }}
       >
         <Pressable onPress={handlePress}>

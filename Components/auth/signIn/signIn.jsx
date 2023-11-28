@@ -31,8 +31,8 @@ const SignInScreen = ({ onSuccessSignIn, onCancel }) => {
         onChangeText={(text) => setPassword(text)}
         value={password}
       />
-      <Button title="Sign In" onPress={handleSignIn} />
-      <Button title="Back" onPress={() => onCancel()} />
+      <Button color="orange" title="Sign In" onPress={handleSignIn} />
+      <Button color="orange" title="Back" onPress={() => onCancel()} />
     </View>
   );
 };

@@ -30,8 +30,8 @@ const SignUpScreen = ({ onSuccessSignUp, onCancel }) => {
         onChangeText={(text) => setPassword(text)}
         value={password}
       />
-      <Button title="Sign Up" onPress={handleSignUp} />
-      <Button title="Back" onPress={() => onCancel()} />
+      <Button color="orange" title="Sign Up" onPress={handleSignUp} />
+      <Button color="orange" title="Back" onPress={() => onCancel()} />
     </View>
   );
 };
